@@ -21,14 +21,12 @@ struct TodayView: View {
             //title
             titleTodayView()
             
-            //индикаторы
-            
-            
             //mood
             moodTodayView()
             
             //title
             titleTodayView()
+                .padding(.bottom, 80)
             
         }
         .background(.black)
@@ -55,7 +53,7 @@ struct headerTodayView: View {
                         Text("Today")
                         Text("\(todayDate())")
                     }
-                    .opacity(0.3)
+                    .opacity(0.4)
                     .font(.system(size: 16))
                     Spacer()
                     Button {
@@ -64,7 +62,7 @@ struct headerTodayView: View {
                         Image("settings")
                             .resizable()
                             .frame(width: 25, height: 25)
-                            .opacity(0.3)
+                            .opacity(0.4)
                     }
                 }
                 
@@ -78,7 +76,7 @@ struct headerTodayView: View {
                         .colorMultiply(Color("Color5"))
                 }
             }
-            .padding(.horizontal, 30)
+            .padding(.horizontal, 20)
         }
     }
     
@@ -92,8 +90,16 @@ struct headerTodayView: View {
 
 //MARK: - title
 struct titleTodayView: View {
-    
     @State var cardOffset: CGFloat = 0
+    
+    let scrollCardsData = [
+            ScrollCardsView(title: "Title", content: "content", mask: "mask2"),
+            ScrollCardsView(title: "Fingers", content: "The fingers and toes are becoming properly separated, losing any webbing. The fingers and toes are becoming properly separated, losing any webbing."),
+            ScrollCardsView(title: "3", content: "3", mask: "mask1"),
+            ScrollCardsView(title: "4", content: "4"),
+            ScrollCardsView(title: "5", content: "5", mask: "mask2")
+        ]
+    
     var body: some View {
         VStack {
             HStack {
@@ -116,13 +122,11 @@ struct titleTodayView: View {
             VStack {
                 GeometryReader {g in
                     HStack {
-                        ScrollCardsView(title: "Title", content: "content", mask: "mask2")
-                        ScrollCardsView(title: "Fingers", content: "The fingers and toes are becoming properly separated, losing any webbing. The fingers and toes are becoming properly separated, losing any webbing.")
-                        ScrollCardsView(title: "3", content: "3", mask: "mask1")
-                        ScrollCardsView(title: "4", content: "4")
-                        ScrollCardsView(title: "5", content: "5", mask: "mask2")
+                        ForEach(scrollCardsData.indices, id: \.self) { index in
+                            scrollCardsData[index]
+                        }
                     }
-                    .offset(x: -(self.cardOffset * g.size.width ))
+                    .offset(x: -(self.cardOffset * (UIScreen.main.bounds.width * 0.85 )))
                 }
                 .gesture(
                     DragGesture()
@@ -140,29 +144,29 @@ struct titleTodayView: View {
                 )
             }
             .frame(height: 216)
-            HStack {
-                Circle()
-                    .opacity(self.cardOffset == 0 ? 1 : 0.3)
-                    .frame(width: 10, height: 10)
-                Circle()
-                    .opacity(self.cardOffset == 1 ? 1 : 0.3)
-                    .frame(width: 10, height: 10)
-                Circle()
-                    .opacity(self.cardOffset == 2 ? 1 : 0.3)
-                    .frame(width: 10, height: 10)
-                Circle()
-                    .opacity(self.cardOffset == 3 ? 1 : 0.3)
-                    .frame(width: 10, height: 10)
-                Circle()
-                    .opacity(self.cardOffset == 4 ? 1 : 0.3)
-                    .frame(width: 10, height: 10)
-            }
-            .foregroundColor(.white)
+            PageIndicator(currentPage: Int(self.cardOffset), pageCount: 5)
+                .foregroundColor(.white)
         }
         .padding(20)
         
     }
 }
+
+struct PageIndicator: View {
+    let currentPage: Int
+    let pageCount: Int
+
+    var body: some View {
+        HStack {
+            ForEach(0..<pageCount, id: \.self) { index in
+                Circle()
+                    .fill(currentPage == index ? Color.white : Color.white.opacity(0.3))
+                    .frame(width: 10, height: 10)
+            }
+        }
+    }
+}
+
 
 struct ScrollCardsView: View {
     var title: String
@@ -186,7 +190,7 @@ struct ScrollCardsView: View {
             }
             .padding()
         }
-        .frame(width: 341, height: 216)
+        .frame(width: UIScreen.main.bounds.width * 0.85, height: 216)
         .cornerRadius(30)
     }
 }
