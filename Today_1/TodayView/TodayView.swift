@@ -45,6 +45,9 @@ struct TodayView_Previews: PreviewProvider {
 
 //MARK: - header
 struct headerTodayView: View {
+    
+    @State private var showSettings = false
+    
     var body: some View {
         VStack {
             ZStack {
@@ -57,12 +60,15 @@ struct headerTodayView: View {
                     .font(.system(size: 16))
                     Spacer()
                     Button {
-                        //
+                        self.showSettings.toggle()
                     } label: {
                         Image("settings")
                             .resizable()
                             .frame(width: 25, height: 25)
                             .opacity(0.4)
+                    }
+                    .sheet(isPresented: $showSettings) {
+                        SettingsView()
                     }
                 }
                 
@@ -145,6 +151,7 @@ struct titleTodayView: View {
             }
             .frame(height: 216)
             PageIndicator(currentPage: Int(self.cardOffset), pageCount: 5)
+                .padding(10)
                 .foregroundColor(.white)
         }
         .padding(20)
