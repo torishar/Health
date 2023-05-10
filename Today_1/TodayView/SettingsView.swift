@@ -50,10 +50,8 @@ struct SettingsView: View {
                             Spacer()
                             Text("Active until 20 March 2024")
                         }
-                        HStack {
-                            Toggle(isOn: $isNotification) {
-                                Text("Notification")
-                            }
+                        Toggle(isOn: $isNotification) {
+                            Text("Notification")
                         }
                         NavigationLink {
                             AdditionalView()
@@ -112,9 +110,10 @@ struct SettingsView: View {
                     .padding(.horizontal, 20)
                     .listRowBackground(Color.black.opacity(0.5))
                 }
+                .font(.system(size: 14))
                 .background(Color("Color8"))
                 .scrollContentBackground(.hidden)
-                .tint(Color("Color7"))
+                .toggleStyle(CustomToggleStyle())
             }
             .background(Color("Color8"))
             .foregroundColor(.white)
