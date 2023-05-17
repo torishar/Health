@@ -9,7 +9,7 @@ import Foundation
 
 class TodayViewModel: ObservableObject {
     
-    var todayDate: String {
+    func todayDate() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.dateFormat = "MMMM d, yyyy"

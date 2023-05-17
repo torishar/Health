@@ -55,7 +55,7 @@ struct HeaderTodayView: View {
                 HStack {
                     VStack(alignment: .leading) {
                         Text("Today")
-                        Text(todayVM.todayDate)
+                        Text(todayVM.todayDate())
                     }
                     .opacity(0.4)
                     .font(.system(size: 16))
@@ -85,13 +85,6 @@ struct HeaderTodayView: View {
             }
             .padding(.horizontal, 20)
         }
-    }
-    
-    func todayDate() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.locale = Locale(identifier: "en_US")
-        return dateFormatter.string(from: Date())
     }
 }
 
