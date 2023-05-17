@@ -18,6 +18,7 @@
 		61343C562A0AB96B00E7FA7A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61343C552A0AB96B00E7FA7A /* SettingsView.swift */; };
 		61343C582A0AD00E00E7FA7A /* AdditionalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61343C572A0AD00E00E7FA7A /* AdditionalView.swift */; };
 		61343C5C2A0B894A00E7FA7A /* CustomToggleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61343C5B2A0B894A00E7FA7A /* CustomToggleStyle.swift */; };
+		61555F0F2A156E320077AFD8 /* TodayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61555F0E2A156E320077AFD8 /* TodayViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		61343C552A0AB96B00E7FA7A /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		61343C572A0AD00E00E7FA7A /* AdditionalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalView.swift; sourceTree = "<group>"; };
 		61343C5B2A0B894A00E7FA7A /* CustomToggleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToggleStyle.swift; sourceTree = "<group>"; };
+		61555F0E2A156E320077AFD8 /* TodayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 			children = (
 				61343C452A09621900E7FA7A /* TodayView.swift */,
 				61343C552A0AB96B00E7FA7A /* SettingsView.swift */,
+				61555F0E2A156E320077AFD8 /* TodayViewModel.swift */,
 			);
 			path = TodayView;
 			sourceTree = "<group>";
@@ -184,6 +187,7 @@
 			files = (
 				61343C562A0AB96B00E7FA7A /* SettingsView.swift in Sources */,
 				61343C4A2A09627B00E7FA7A /* MediaView.swift in Sources */,
+				61555F0F2A156E320077AFD8 /* TodayViewModel.swift in Sources */,
 				61343C5C2A0B894A00E7FA7A /* CustomToggleStyle.swift in Sources */,
 				61343C4C2A09653C00E7FA7A /* CustomTabView.swift in Sources */,
 				61343C582A0AD00E00E7FA7A /* AdditionalView.swift in Sources */,

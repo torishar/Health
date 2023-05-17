@@ -13,19 +13,19 @@ struct TodayView: View {
         ScrollView(showsIndicators: false) {
             
             //header
-            headerTodayView()
+            HeaderTodayView()
             
             Divider()
                 .background(.white)
             
             //title
-            titleTodayView()
+            TitleTodayView()
             
             //mood
-            moodTodayView()
+            MoodTodayView()
             
             //title
-            titleTodayView()
+            TitleTodayView()
                 .padding(.bottom, 80)
             
         }
@@ -44,9 +44,10 @@ struct TodayView_Previews: PreviewProvider {
 
 
 //MARK: - header
-struct headerTodayView: View {
+struct HeaderTodayView: View {
     
     @State private var showSettings = false
+    @ObservedObject var todayVM = TodayViewModel()
     
     var body: some View {
         VStack {
@@ -54,7 +55,7 @@ struct headerTodayView: View {
                 HStack {
                     VStack(alignment: .leading) {
                         Text("Today")
-                        Text("\(todayDate())")
+                        Text(todayVM.todayDate)
                     }
                     .opacity(0.4)
                     .font(.system(size: 16))
@@ -95,7 +96,7 @@ struct headerTodayView: View {
 }
 
 //MARK: - title
-struct titleTodayView: View {
+struct TitleTodayView: View {
     @State var cardOffset: CGFloat = 0
     
     let scrollCardsData = [
@@ -203,7 +204,7 @@ struct ScrollCardsView: View {
 }
 
 //MARK: - mood
-struct moodTodayView: View {
+struct MoodTodayView: View {
     
     @State var moodBreakdown: [Int] = [21, 51, 73, 21, 83, 100]
     var imageMood: [String] = ["mood1", "mood2", "mood3", "mood4", "mood5", "mood6"]
