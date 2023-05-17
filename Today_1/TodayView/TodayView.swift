@@ -91,15 +91,8 @@ struct HeaderTodayView: View {
 //MARK: - title
 struct TitleTodayView: View {
     @State var cardOffset: CGFloat = 0
-    
-    let scrollCardsData = [
-            ScrollCardsView(title: "Title", content: "content", mask: "mask2"),
-            ScrollCardsView(title: "Fingers", content: "The fingers and toes are becoming properly separated, losing any webbing. The fingers and toes are becoming properly separated, losing any webbing."),
-            ScrollCardsView(title: "3", content: "3", mask: "mask1"),
-            ScrollCardsView(title: "4", content: "4"),
-            ScrollCardsView(title: "5", content: "5", mask: "mask2")
-        ]
-    
+    @ObservedObject var cardVM = CardViewModel()
+
     var body: some View {
         VStack {
             HStack {
@@ -122,8 +115,12 @@ struct TitleTodayView: View {
             VStack {
                 GeometryReader {g in
                     HStack {
-                        ForEach(scrollCardsData.indices, id: \.self) { index in
-                            scrollCardsData[index]
+                        ForEach(cardVM.scrollCardsData.indices, id: \.self) { index in
+                            ScrollCardsView(
+                                title: cardVM.scrollCardsData[index].title,
+                                content: cardVM.scrollCardsData[index].content,
+                                mask: cardVM.scrollCardsData[index].mask
+                            )
                         }
                     }
                     .offset(x: -(self.cardOffset * (UIScreen.main.bounds.width * 0.85 )))
