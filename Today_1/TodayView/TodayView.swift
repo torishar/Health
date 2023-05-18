@@ -176,6 +176,7 @@ struct ScrollCardsView: View {
                 Rectangle()
                     .foregroundColor(Color("Color3"))
                 Image(mask ?? "")
+                    .resizable()
             }
             VStack(alignment: .center) {
                 Text(title)
@@ -196,16 +197,15 @@ struct ScrollCardsView: View {
 //MARK: - mood
 struct MoodTodayView: View {
     
-    @State var moodBreakdown: [Int] = [21, 51, 73, 21, 83, 100]
-    var imageMood: [String] = ["mood1", "mood2", "mood3", "mood4", "mood5", "mood6"]
+    @ObservedObject var moodVM = MoodViewModel()
     
     var body: some View {
         VStack(alignment: .leading) {
             Text("Mood Breakdown")
                 .font(.system(size: 25, weight: .heavy))
             HStack(alignment: .bottom, spacing: 40) {
-                ForEach(moodBreakdown.indices, id: \.self) { index in
-                    DiagramView(imageMood: imageMood[index], rectangleHeight: CGFloat(moodBreakdown[index]))
+                ForEach(moodVM.moodBreakdown.indices, id: \.self) { index in
+                    DiagramView(imageMood: moodVM.imageMood[index], rectangleHeight: CGFloat(moodVM.moodBreakdown[index]))
                 }
             }
         }
