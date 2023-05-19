@@ -7,50 +7,113 @@
 
 import SwiftUI
 
-struct ContentView: View {
-    @State var selectionTab: String = "today"
+class Coordinator: ObservableObject {
+    @Published var path: [String] = []
     
-    var views = ["doctor", "today", "media"]
-    var names = ["At the doctor", "Today", "Media"]
-    
-    init() {
-        UITabBar.appearance().isHidden = true
+    func resolve (pathItem: String) -> some View {
+        Group {
+            switch pathItem {
+            case "doctor": DoctorView()
+            case "today": TodayView()
+            case "media": MediaView()
+            default:
+                EmptyView()
+            }
+        }
     }
+}
+
+struct ContentView: View {
+    @ObservedObject private var coordinator = Coordinator()
+    @State private var selectedBtn: String = "today"
+    
+        init() {
+            UITabBar.appearance().isHidden = true
+        }
     
     var body: some View {
-        ZStack(alignment: .bottom) {
-            
-            TabView(selection: $selectionTab) {
-                DoctorView()
-                    .tag("doctor")
-                TodayView()
-                    .tag("today")
-                MediaView()
-                    .tag("media")
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            
-            HStack {
-                Spacer()
-                ForEach(views.indices, id: \.self) { index in
-                    CustomTabView(currentTab: $selectionTab, imageTab: views[index], nameTab: names[index])
+        TabView(selection: $coordinator.path) {
+            ZStack(alignment: .bottom) {
+                coordinator.resolve(pathItem: coordinator.path.last ?? "today")
+                HStack {
+                    Spacer()
+                    ButtonContent(
+                        imageTab: "doctor",
+                        nameTab: "At the doctor",
+                        action: {
+                            print(coordinator.path)
+                            selectedBtn = "doctor";
+                            coordinator.path = ["doctor"]
+                        },
+                        isSelected:
+                            selectedBtn == "doctor")
+                    ButtonContent(
+                        imageTab: "today",
+                        nameTab: "Today",
+                        action: {
+                            print(coordinator.path)
+                            selectedBtn = "today";
+                            coordinator.path = ["today"]
+                        },
+                        isSelected:
+                            selectedBtn == "today")
+                    ButtonContent(
+                        imageTab: "media",
+                        nameTab: "Media",
+                        action: {
+                            print(coordinator.path)
+                            selectedBtn = "media";
+                            coordinator.path = ["media"]
+                        },
+                        isSelected:
+                            selectedBtn == "media")
+                    Spacer()
                 }
-                Spacer()
-            }
-            .padding(.top, 100)
-            .background(
-                LinearGradient(
-                    gradient: Gradient(stops: [
-                        .init(color: .init(.sRGB, red: 0, green: 0, blue: 0, opacity: 0), location: 0),
-                        .init(color: .init(.sRGB, red: 0, green: 0, blue: 0, opacity: 0.8), location: 0.6),
-                        .init(color: .init(.sRGB, red: 0, green: 0, blue: 0, opacity: 1), location: 1)
-                    ]),
-                    startPoint: .top,
-                    endPoint: .bottom
+                .padding(.top, 100)
+                .background(
+                    LinearGradient(
+                        gradient: Gradient(stops: [
+                            .init(color: .init(.sRGB, red: 0, green: 0, blue: 0, opacity: 0), location: 0),
+                            .init(color: .init(.sRGB, red: 0, green: 0, blue: 0, opacity: 0.8), location: 0.6),
+                            .init(color: .init(.sRGB, red: 0, green: 0, blue: 0, opacity: 1), location: 1)
+                        ]),
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                    .ignoresSafeArea()
                 )
-                .ignoresSafeArea()
-            )
+            }
+            .navigationDestination(for: String.self) { dest in
+                coordinator.resolve(pathItem: dest)
+            }
+        }
+        .environmentObject(coordinator)
+    }
+}
 
+
+extension View {
+    func ButtonContent (imageTab: String, nameTab: String, action: (() -> Void)?, isSelected: Bool) -> some View {
+        Button {
+            action?()
+        } label: {
+            VStack {
+                Rectangle()
+                    .frame(width: (UIScreen.main.bounds.width - 60) / 3, height: 5)
+                    .clipShape(Capsule())
+                    .shadow(color: isSelected ? Color.white.opacity(0.8) : Color.clear, radius: 8)
+                    .blendMode(.screen)
+                HStack {
+                    Image(imageTab)
+                        .resizable()
+                        .frame(width: 21, height: 21)
+                    Text(nameTab)
+                        .font(.system(size: 14))
+                        .fixedSize(horizontal: true, vertical: false)
+                }
+            }
+            .foregroundColor(.white)
+            .opacity(isSelected ? 1 : 0.3)
         }
     }
 }

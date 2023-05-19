@@ -198,14 +198,15 @@ struct ScrollCardsView: View {
 struct MoodTodayView: View {
     
     @ObservedObject var moodVM = MoodViewModel()
+    var imageMood: [String] = ["mood1", "mood2", "mood3", "mood4", "mood5", "mood6"]
     
     var body: some View {
         VStack(alignment: .leading) {
             Text("Mood Breakdown")
                 .font(.system(size: 25, weight: .heavy))
             HStack(alignment: .bottom, spacing: 40) {
-                ForEach(moodVM.moodBreakdown.indices, id: \.self) { index in
-                    DiagramView(imageMood: moodVM.imageMood[index], rectangleHeight: CGFloat(moodVM.moodBreakdown[index]))
+                ForEach(imageMood.indices, id: \.self) { index in
+                    DiagramView(imageMood: imageMood[index], rectangleHeight: CGFloat(moodVM.moodBreakdown[index]))
                 }
             }
         }
