@@ -41,9 +41,9 @@ struct ContentView: View {
                         imageTab: "doctor",
                         nameTab: "At the doctor",
                         action: {
-                            print(coordinator.path)
                             selectedBtn = "doctor";
                             coordinator.path = ["doctor"]
+                            print(coordinator.path)
                         },
                         isSelected:
                             selectedBtn == "doctor")
@@ -51,9 +51,9 @@ struct ContentView: View {
                         imageTab: "today",
                         nameTab: "Today",
                         action: {
-                            print(coordinator.path)
                             selectedBtn = "today";
                             coordinator.path = ["today"]
+                            print(coordinator.path)
                         },
                         isSelected:
                             selectedBtn == "today")
@@ -61,9 +61,9 @@ struct ContentView: View {
                         imageTab: "media",
                         nameTab: "Media",
                         action: {
-                            print(coordinator.path)
                             selectedBtn = "media";
                             coordinator.path = ["media"]
+                            print(coordinator.path)
                         },
                         isSelected:
                             selectedBtn == "media")
