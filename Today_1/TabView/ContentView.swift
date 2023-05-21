@@ -43,7 +43,6 @@ struct ContentView: View {
                         action: {
                             selectedBtn = "doctor";
                             coordinator.path = ["doctor"]
-                            print(coordinator.path)
                         },
                         isSelected:
                             selectedBtn == "doctor")
@@ -53,7 +52,6 @@ struct ContentView: View {
                         action: {
                             selectedBtn = "today";
                             coordinator.path = ["today"]
-                            print(coordinator.path)
                         },
                         isSelected:
                             selectedBtn == "today")
@@ -62,9 +60,7 @@ struct ContentView: View {
                         nameTab: "Media",
                         action: {
                             selectedBtn = "media";
-                            coordinator.path = ["media"]
-                            print(coordinator.path)
-                        },
+                            coordinator.path = ["media"]                        },
                         isSelected:
                             selectedBtn == "media")
                     Spacer()
